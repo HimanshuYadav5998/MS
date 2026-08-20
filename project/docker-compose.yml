@@ -1,0 +1,69 @@
+version: "3.9"
+
+services:
+  # ── Backend orchestrator ──────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: college_backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      # Persist SQLite DB between restarts
+      - sqlite_data:/app
+    depends_on:
+      ai_service:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ── AI classification microservice (placeholder) ──────────────────────────
+  # Replace image with the real AI service image built by Member 3.
+  ai_service:
+    image: python:3.11-slim
+    container_name: college_ai_service
+    command: >
+      sh -c "pip install fastapi uvicorn -q &&
+             python -c \"
+import uvicorn
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.post('/ai/analyze')
+def analyze(body: dict):
+    return {
+        'request_id': body.get('request_id', 'unknown'),
+        'category': 'recommendation_letter',
+        'recommended_action': 'send_email',
+        'summary': 'Student requests recommendation letter (stub).',
+        'priority': 'high',
+        'confidence': 0.85,
+        'requires_approval': True,
+        'extracted_fields': {}
+    }
+
+@app.get('/health')
+def health(): return {'status': 'ok'}
+
+uvicorn.run(app, host='0.0.0.0', port=8001)
+\""
+    ports:
+      - "8001:8001"
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+volumes:
+  sqlite_data:
