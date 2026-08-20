@@ -1,0 +1,126 @@
+[
+  {
+    "id": 1,
+    "label": "Leave Request — English",
+    "category": "leave_request",
+    "text": "Sir, I need leave tomorrow because of a family emergency. My grandfather is in hospital and I have to go home urgently. Please approve my leave for 21st August 2026.",
+    "requester_name": "Priya Mehta",
+    "requester_role": "student",
+    "expected_outcome": {
+      "category": "leave_request",
+      "requires_approval": true,
+      "recommended_action": "request_teacher_approval",
+      "status_after_approval": "COMPLETED",
+      "action_type": "send_email"
+    },
+    "expected_action_type": "send_email",
+    "expected_payload": {
+      "to": "teacher@college.edu",
+      "subject": "Leave Request Approved — Priya Mehta",
+      "body": "Dear Teacher,\n\nThis is to inform you that the leave request from Priya Mehta (student) for 21st August 2026 has been reviewed and approved.\n\nReason: Family emergency — grandfather hospitalized.\n\nRegards,\nAI College Request System"
+    },
+    "demo_notes": "Lead demo scenario. Shows the core happy path: webhook → AI → Notion → approval → email. Narrate each step."
+  },
+  {
+    "id": 2,
+    "label": "Assignment Extension — Hinglish (WOW moment)",
+    "category": "assignment_extension",
+    "text": "Sir kal ghar pe emergency hai, assignment Monday ko submit kar sakta hu? Bahut important kaam hai, please ek din ki extension de do.",
+    "requester_name": "Rahul Sharma",
+    "requester_role": "student",
+    "expected_outcome": {
+      "category": "assignment_extension",
+      "requires_approval": true,
+      "recommended_action": "request_teacher_approval",
+      "extracted_fields": {
+        "requested_extension_date": "Monday",
+        "reason": "home emergency"
+      },
+      "status_after_approval": "COMPLETED",
+      "action_type": "send_email"
+    },
+    "expected_action_type": "send_email",
+    "expected_payload": {
+      "to": "teacher@college.edu",
+      "subject": "Assignment Extension Approved — Rahul Sharma",
+      "body": "Dear Teacher,\n\nRahul Sharma's request for a 1-day assignment extension to Monday has been approved.\n\nReason: Home emergency.\n\nRegards,\nAI College Request System"
+    },
+    "demo_notes": "★ THE WOW MOMENT ★ Submit this in Hinglish and show judges that the AI understands it perfectly — category, extracted date, summary, all correct. Pause here and let it land."
+  },
+  {
+    "id": 3,
+    "label": "Event Booking",
+    "category": "event_booking",
+    "text": "Ma'am, our CS department wants to book the main auditorium on 15th September 2026 for the Annual Tech Fest. We need it from 9 AM to 6 PM. Around 300 students will attend.",
+    "requester_name": "Arjun Nair",
+    "requester_role": "student",
+    "expected_outcome": {
+      "category": "event_booking",
+      "requires_approval": true,
+      "recommended_action": "request_teacher_approval",
+      "extracted_fields": {
+        "venue": "main auditorium",
+        "date": "2026-09-15",
+        "duration": "9 AM to 6 PM",
+        "expected_attendees": 300,
+        "event_name": "Annual Tech Fest"
+      },
+      "status_after_approval": "COMPLETED",
+      "action_type": "create_calendar_event"
+    },
+    "expected_action_type": "create_calendar_event",
+    "expected_payload": {
+      "title": "Annual Tech Fest — CS Department",
+      "date": "2026-09-15",
+      "description": "Main auditorium booking for Annual Tech Fest. 9 AM–6 PM. ~300 attendees. Requested by Arjun Nair."
+    },
+    "demo_notes": "Shows calendar action type. Pivot from email to calendar — demonstrates the dispatcher routing correctly."
+  },
+  {
+    "id": 4,
+    "label": "Maintenance Request",
+    "category": "maintenance_request",
+    "text": "The AC in Room 204 has been broken for 3 days. It's very hot and students can't focus. Please send someone to fix it as soon as possible.",
+    "requester_name": "Deepika Rao",
+    "requester_role": "student",
+    "expected_outcome": {
+      "category": "maintenance_request",
+      "requires_approval": true,
+      "recommended_action": "request_teacher_approval",
+      "extracted_fields": {
+        "location": "Room 204",
+        "issue": "AC not working",
+        "urgency": "high"
+      },
+      "status_after_approval": "COMPLETED",
+      "action_type": "send_email"
+    },
+    "expected_action_type": "send_email",
+    "expected_payload": {
+      "to": "facilities@college.edu",
+      "subject": "Maintenance Request — Room 204 AC",
+      "body": "Dear Facilities Team,\n\nA maintenance request has been filed for Room 204. The AC unit has been non-functional for 3 days.\n\nPriority: High — affecting student concentration.\n\nPlease schedule repair at earliest.\n\nRegards,\nAI College Request System"
+    },
+    "demo_notes": "Shows a non-leave category. Good for showing breadth of what the system handles."
+  },
+  {
+    "id": 5,
+    "label": "Ambiguous / Invalid Request (graceful escalation)",
+    "category": "unknown",
+    "text": "hello sir please do the needful and help me with my thing thanks",
+    "requester_name": "Anonymous Student",
+    "requester_role": "student",
+    "expected_outcome": {
+      "category": "unknown",
+      "requires_approval": true,
+      "recommended_action": "human_review",
+      "confidence_below": 0.70,
+      "status_after_submission": "PENDING_APPROVAL",
+      "action_type": null,
+      "notes": "Should NOT auto-complete. Must route to human review. This proves the system is safe."
+    },
+    "expected_action_type": null,
+    "expected_payload": {},
+    "demo_notes": "★ RELIABILITY MOMENT ★ Submit this and narrate: 'Even when someone sends vague garbage, our system doesn't crash or guess — it flags it for human review. Safety > speed.' This is what separates us from a toy prototype."
+  }
+]
