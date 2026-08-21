@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600">
+  <defs>
+    <style>
+      .text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+      .bold { font-weight: 600; }
+      .header-title { font-size: 24px; font-weight: 700; fill: #1a202c; }
+      .table-header { font-size: 12px; font-weight: 600; fill: #718096; text-transform: uppercase; }
+      .table-cell { font-size: 13px; fill: #2d3748; }
+      .tag { font-size: 11px; font-weight: 600; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="600" fill="#f8fafc" />
+
+  <!-- Header -->
+  <g transform="translate(40, 40)">
+    <text x="0" y="30" font-size="28">⚖️</text>
+    <text x="40" y="28" class="text header-title">Approvals Database — Human Review Queue</text>
+    <text x="40" y="52" class="text table-cell" fill="#718096">Teachers and administrators directly edit the 'Decision' column in Notion. Backend polls for changes and resumes action.</text>
+  </g>
+
+  <!-- Table Container -->
+  <g transform="translate(40, 120)">
+    <rect x="0" y="0" width="1120" height="420" rx="8" fill="white" stroke="#e2e8f0" />
+    <rect x="0" y="0" width="1120" height="42" rx="8" fill="#f7fafc" />
+
+    <!-- Headers -->
+    <text x="20" y="26" class="text table-header">Request ID</text>
+    <text x="180" y="26" class="text table-header">Request (Short Summary)</text>
+    <text x="580" y="26" class="text table-header">Decision</text>
+    <text x="730" y="26" class="text table-header">Reviewer</text>
+    <text x="890" y="26" class="text table-header">Decision Reason / Notes</text>
+
+    <!-- Row 1 -->
+    <line x1="0" y1="42" x2="1120" y2="42" stroke="#edf2f7" />
+    <text x="20" y="78" class="text table-cell bold" fill="#2b6cb0">REQ-2026-4192</text>
+    <text x="180" y="78" class="text table-cell">Alex Chen: Prereq waiver for CS201 with AP Calc BC 5</text>
+    <rect x="575" y="62" width="105" height="24" rx="4" fill="#fefcbf" stroke="#ecc94b" />
+    <text x="627" y="78" class="text tag" fill="#744210">pending</text>
+    <text x="730" y="78" class="text table-cell" fill="#a0aec0">—</text>
+    <text x="890" y="78" class="text table-cell" fill="#a0aec0">—</text>
+
+    <!-- Row 2 -->
+    <line x1="0" y1="102" x2="1120" y2="102" stroke="#edf2f7" />
+    <text x="20" y="138" class="text table-cell bold" fill="#2b6cb0">REQ-2026-4160</text>
+    <text x="180" y="138" class="text table-cell">David Kim: Overload request to register for 22 credits in Final Sem</text>
+    <rect x="575" y="122" width="105" height="24" rx="4" fill="#c6f6d5" stroke="#9ae6b4" />
+    <text x="627" y="138" class="text tag" fill="#22543d">approved</text>
+    <text x="730" y="138" class="text table-cell">Dean Harrison</text>
+    <text x="890" y="138" class="text table-cell">Senior standing with 3.82 GPA qualifies for overload</text>
+
+    <!-- Row 3 -->
+    <line x1="0" y1="162" x2="1120" y2="162" stroke="#edf2f7" />
+    <text x="20" y="198" class="text table-cell bold" fill="#2b6cb0">REQ-2026-4155</text>
+    <text x="180" y="198" class="text table-cell">Liam Vance: Grade appeal for Midterm exam in STAT301</text>
+    <rect x="575" y="182" width="125" height="24" rx="4" fill="#e9d8fd" stroke="#d6bcfa" />
+    <text x="637" y="198" class="text tag" fill="#553c9a">override_approved</text>
+    <text x="730" y="198" class="text table-cell">Prof. Miller</text>
+    <text x="890" y="198" class="text table-cell">Recalculated Question 4 with partial credit (+5 pts)</text>
+  </g>
+</svg>
